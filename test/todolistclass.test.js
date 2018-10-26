@@ -1,28 +1,8 @@
-/*
-const todaysToDoList = createTodoList();
-todaysToDoList.add('Give Ollie a bj');
-console.log(todaysToDoList.listIncomplete());
-
-
-
-const myTodoList = createTodoList();
-console.log('myToDoList', myTodoList)
-myTodoList['add']('thing 1')
-myTodoList.add('thing 2')
-console.log('thing 1, thing 2', myTodoList.listIncomplete()) // should give thing 1, thing 2
-myTodoList.markComplete('thing 1')
-console.log('thing 2', myTodoList.listIncomplete()) // should give thing 2
-console.log('thing 1', myTodoList.listComplete()) // should give thing 1
-console.log('thing 1, thing 2', myTodoList.listAll()) // should give thing 1, thing 2
-myTodoList.delete('thing 2')
-console.log('thing 1', myTodoList.listAll()) // should give thing 1
-*/
-
 const expect = require('expect.js');
-const createTodoList = require('../lib/todolist')
+const TodoList = require('../lib/todolistclass')
 
-describe('createTodoList', () => {
-  const myTodoList = createTodoList();
+describe('TodoList Class', () => {
+  const myTodoList = new TodoList();
 
   it('it gives an object', () => {
     expect(myTodoList).to.be.an('object');
@@ -54,7 +34,7 @@ describe('createTodoList', () => {
 
   describe('todolist.add()', () => {
     it('should add an item to the list', () => {
-      const myTodoList = createTodoList();
+      const myTodoList = new TodoList();
       const wholeListBefore = myTodoList.listAll();
       expect(wholeListBefore).to.be.an('array');
       expect(wholeListBefore).to.have.length(0);
@@ -70,7 +50,7 @@ describe('createTodoList', () => {
 
   describe('todoList.delete()', () => {
     it('should delete an item from the list', () => {
-      const myTodoList = createTodoList();
+      const myTodoList = new TodoList();
       myTodoList.add('thing1');
       const listBefore = myTodoList.listAll();
       expect(listBefore).to.be.an('array');
@@ -87,7 +67,7 @@ describe('createTodoList', () => {
 
   describe('todoList.markComplete()', () => {
     it('should move item to listComplete', () => {
-      const myTodoList = createTodoList();
+      const myTodoList = new TodoList();
       myTodoList.add('thing1');
       const listBefore = myTodoList.listIncomplete();
       expect(listBefore).to.be.an('array');
@@ -105,7 +85,7 @@ describe('createTodoList', () => {
 
   describe('todoList.listIncomplete()',() =>{
     it('should give an array of incomplete items', () => {
-      const myTodoList = createTodoList();
+      const myTodoList = new TodoList();
       myTodoList.add('thing1');
       myTodoList.add('thing2');
 
@@ -127,7 +107,7 @@ describe('createTodoList', () => {
 
   describe('todoList.listComplete()', () => {
     it('should give an array of complete items', () => {
-      const myTodoList = createTodoList();
+      const myTodoList = new TodoList();
       myTodoList.add('thing1');
       myTodoList.add('thing2');
       myTodoList.markComplete('thing1');
@@ -142,7 +122,7 @@ describe('createTodoList', () => {
 
   describe('todoList.listAll()', () => {
     it('should list all items', () => {
-      const myTodoList = createTodoList();
+      const myTodoList = new TodoList();
       myTodoList.add('thing1');
       myTodoList.add('thing2');
       myTodoList.markComplete('thing1');
