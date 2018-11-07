@@ -3,9 +3,10 @@ const todoList1 = createTodoList();
 
 const createMarkCompleteButtonId = (task) => `markComplete_button_${task}`;
 
-const taskNameToListItem = (task) => `<div>${task}<button id='${createMarkCompleteButtonId(task)}'>Mark Complete</button></div>`;
+const createIncompleteListItem = (task) => `<div>${task}<button id='${createMarkCompleteButtonId(task)}'>Mark Complete</button></div>`;
 
-const listToHtmlString = (list) => list.map(taskNameToListItem).join('');
+const incompleteListToHtmlString = (list) => list.map(createIncompleteListItem).join('');
+const completeListToHtmlString = (list) => list.map((task) => `<div>${task}</div>`).join('');
 
 const setupMarkCompleteButtons = (list) => {
   // what are you doing with this variable addEventListenerToButtons, what is it?
@@ -13,16 +14,24 @@ const setupMarkCompleteButtons = (list) => {
     const markCompleteButtonElement = document.getElementById(createMarkCompleteButtonId(task));
     markCompleteButtonElement.addEventListener('click', () => {
       todoList1.markComplete(task);
+      console.log('blah');
       displayIncompleteList();
+      displayCompleteList();
     });
   });
 };
 
 const displayIncompleteList = () => {
   const list = todoList1.listIncomplete();
-  const listAsHtmlString = listToHtmlString(list);
+  const listAsHtmlString = incompleteListToHtmlString(list);
   document.getElementById("showListToDo").innerHTML = listAsHtmlString;
   setupMarkCompleteButtons(list);
+};
+
+const displayCompleteList = () => {
+  const list = todoList1.listComplete();
+  const listAsHtmlString = completeListToHtmlString(list);
+  document.getElementById("showListDone").innerHTML = listAsHtmlString;
 };
 
 const addTaskButton = document.getElementById("addTaskButton");
