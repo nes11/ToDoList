@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha './test/**.test.js'"
+    "test": "mocha './test/**.test.js'",
+    "buildBundle": "browserify -e index.js -o bundle.js"
   },
   "author": "",
   "license": "ISC",
