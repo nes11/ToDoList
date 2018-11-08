@@ -3,20 +3,34 @@ const createTodoList = require('./lib/todolist')
 const todoList1 = createTodoList();
 
 const createMarkCompleteButtonId = (task) => `markComplete_button_${task}`;
+const createDeleteButtonId = (task) => `Delete_task${task}`;
 
-const createIncompleteListItem = (task) => `<div>${task}<button id='${createMarkCompleteButtonId(task)}'>Mark Complete</button></div>`;
+const createIncompleteListItem = (task) => `<div>${task}<button id='${createMarkCompleteButtonId(task)}'>Task completed</button></div>`;
+const createCompleteListItem = (task) => `<div>${task}<button id='${createDeleteButtonId(task)}'>Delete task</button></div>`;
 
 const incompleteListToHtmlString = (list) => list.map(createIncompleteListItem).join('');
-const completeListToHtmlString = (list) => list.map((task) => `<div>${task}</div>`).join('');
+const completeListToHtmlString = (list) => list.map(createCompleteListItem).join('');
 
 const setupMarkCompleteButtons = (list) => {
-  // what are you doing with this variable addEventListenerToButtons, what is it?
   list.forEach(task => {
     const markCompleteButtonElement = document.getElementById(createMarkCompleteButtonId(task));
     markCompleteButtonElement.addEventListener('click', () => {
       todoList1.markComplete(task);
-      console.log('blah');
+      console.log('incomplete', todoList1.listIncomplete());
+      console.log('complete', todoList1.listComplete())
       displayIncompleteList();
+      displayCompleteList();
+    });
+  });
+};
+
+const setupDeleteButtons = (list) => {
+  list.forEach(task => {
+    const deleteButtonElement = document.getElementById(createDeleteButtonId(task));
+    console.log('deleteButtonElement', deleteButtonElement);
+    deleteButtonElement.addEventListener('click', () => {
+      todoList1.delete(task);
+      console.log(todoList1.listAll());
       displayCompleteList();
     });
   });
@@ -33,6 +47,7 @@ const displayCompleteList = () => {
   const list = todoList1.listComplete();
   const listAsHtmlString = completeListToHtmlString(list);
   document.getElementById("showListDone").innerHTML = listAsHtmlString;
+  setupDeleteButtons(list);
 };
 
 const addTaskButton = document.getElementById("addTaskButton");
@@ -41,8 +56,6 @@ addTaskButton.addEventListener('click', () => {
   todoList1.add(nameOfTask);
   displayIncompleteList();
 });
-
-
 
 
 /*const addTask = document.getElementById("addTask");
